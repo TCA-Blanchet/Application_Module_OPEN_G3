@@ -41,16 +41,10 @@ fluidPage(
              ),
              
              # Espacement visuel
-             fluidRow(column(width = 12, hr())),
+             fluidRow(column(width = 12, hr()))
              
              # Vos sélections d'icônes
-             checkboxGroupInput("icons", "Choose icons:",
-                                choiceNames =
-                                  list(icon("calendar"), icon("bed"),
-                                       icon("cog"), icon("bug")),
-                                choiceValues =
-                                  list("calendar", "bed", "cog", "bug")
-             )
+             
     ),
     
     # Onglet pour la carte
