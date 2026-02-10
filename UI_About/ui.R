@@ -1,4 +1,4 @@
-#    https://shiny.posit.co/
+# https://shiny.posit.co/
 
 library(shiny)
 library(leaflet)
@@ -12,25 +12,28 @@ fluidPage(
     tabPanel("About",
              titlePanel("L'Equipe"),
              
+             # Section des membres du groupe
+             fluidRow(
+               column(width = 12,
+                      tags$ul(
+                        tags$li(strong("Louis")),
+                        tags$li(strong("Kevine")),
+                        tags$li(strong("Tibault")),
+                        tags$li(strong("Glory"))
+                      )
+               )
+             ),
+             
              fluidRow(column(width = 4),
                       column(width = 2, offset = 3)),
              fluidRow(column(width = 12)),
-             checkboxGroupInput("icons", "Choose icons:",
-                                choiceNames =
-                                  list(icon("calendar"), icon("bed"),
-                                       icon("cog"), icon("bug")),
-                                choiceValues =
-                                  list("calendar", "bed", "cog", "bug")
              ),
+             
              sidebarLayout(
-               sidebarPanel(checkboxGroupInput("variable", "Variables to show:",
-                                               c("Cylinders" = "cyl",
-                                                 "Transmission" = "am",
-                                                 "Gears" = "gear"))
-               ),
+               sidebarPanel(),
                mainPanel(leafletOutput("map")
                )
-             ))
-    
+             
+             )
   )# fermeture tabsetPanel
 )# fermeture Fluidpage
