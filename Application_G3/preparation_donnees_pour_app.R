@@ -13,7 +13,6 @@ departements <- st_read("data/carte/DEPARTEMENT.shp", quiet = TRUE) %>%
 
 aop_data <- read_csv("data/AOP/aop_4_categories.csv", show_col_types = FALSE) %>%
   rename(AOP = 'Aire_geographique')
-names(aop_data)[5] <- "Categorie_AOP"
 
 aop_communes <- aop_data %>%
   left_join(communes, by = c("CI" = "INSEE_COM")) %>%
@@ -25,7 +24,7 @@ aop_centroides <- aop_communes %>%
   summarise(
     n_communes = n(),
     departements = paste(unique(Departement), collapse = ", "),
-    categorie = first(Categorie_AOP),
+    categorie = first(Categorie),
     .groups = "drop"
   ) %>%
   st_set_agr("constant") %>%
