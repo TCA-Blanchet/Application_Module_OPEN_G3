@@ -17,6 +17,7 @@ fluidPage(
              # Application title
              titlePanel("Old Faithful Geyser Data"),
              
+             
              # Sidebar with a slider input for number of bins
              sidebarLayout(
                sidebarPanel(
@@ -35,12 +36,35 @@ fluidPage(
     ),# fermeture tabPanel1
     
     tabPanel("Carte AOP",
-             titlePanel("Carte Intéractive des AOP"),
-             leafletOutput("map")
-    ), 
+             titlePanel("Carte Interactive des AOP"),
+             fluidRow(column(width = 4),
+                      column(width = 2, offset = 3)),
+             fluidRow(column(width = 12)),
+             checkboxGroupInput("icons", "Choose icons:",
+                                choiceNames =
+                                  list(icon("calendar"), icon("bed"),
+                                       icon("cog"), icon("bug")),
+                                choiceValues =
+                                  list("calendar", "bed", "cog", "bug")
+             ),
+             sidebarLayout(
+               sidebarPanel(checkboxGroupInput("variable", "Variables to show:",
+                                               c("Cylinders" = "cyl",
+                                                 "Transmission" = "am",
+                                                 "Gears" = "gear"))
+               ),
+              mainPanel(leafletOutput("map")
+              ) 
+             
+    )), 
     
     tabPanel("About",
              titlePanel("L'Equipe"),
+             
+             checkboxGroupInput("variable", "Variables to show:",
+                                c("Cylinders" = "cyl",
+                                  "Transmission" = "am",
+                                  "Gears" = "gear")),
              fluidRow(column(width = 4),
                       column(width = 2, offset = 3)),
              fluidRow(column(width = 12)),
@@ -49,6 +73,6 @@ fluidPage(
                                   "Transmission" = "am",
                                   "Gears" = "gear"))
     )
-  )# fermeture tabsetPanel
 
+  )# fermeture tabsetPanel
 )# fermeture Fluidpage
