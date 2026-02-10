@@ -15,7 +15,7 @@ output:
     toc_float:
       collapsed: true
       smooth_scroll: true
-bibliography: biblio/Informatique.bib
+bibliography: biblio/G3.bib
 csl: "biblio/isara-iso-690.csl"
 ---
 
@@ -31,7 +31,11 @@ library(knitr)
 Nous avons eut plusieurs idées d'application utilisant le module Shiny, nos trois idées se base sur une ou plusieurs cartes. 
 Notre première idée est la création d'une carte à l'échèlle française ou régional des différentes AOP ou label avec la possibilité d'obtenir plus amples informations en cliquant dessus. 
 Notre seconde idée est la représentation sur une carte de la france, d'une région ou d'un département d'information issu de l'insee avec ou sans traitement d'analyse.
-Notre troisième idée est la création d'une carte des évèments d'une ville ou d'un départment avec une barre de recherche par date ou type d'évènement ou lieux et une gestion de la temporalité
+Notre troisième idée est la création d'une carte des évèments d'une ville ou d'un départment avec une barre de recherche par date ou type d'évènement ou lieux et une gestion de la temporalité. 
+
+# Jour 1 
+Nous avons choisi de nous pencher sur notre première idée qui est la présentation d'une carte intéractive des différentes AOPs françaises. 
+Pour ce faire nous avons choisi d'utilisé un jeu de donnée .shp comme base de carte afin de n'avoir que les départements et comunnes françaises et non l'entièreté du monde avec openstreet map. Ce jeu de donnée issu de notre travail de 3ème année sous QGIS, nous a fait rencontrer quelques problèmes: Les fichiers étant trop lourds pour gitHub, tibault s'est retrouvé avec un commit qui ne pouvait être push sur le répertoire commun ce qui entraîne un blocage total de la fonction push depuis Rstudio et la suppression de ces documents demandés eux aussi un commit et un push. Pour régler ce problème, il a esseyé d'utiliser l'interface Git Gui pour décharger le commit, cependant celà recharger les documents précédement supprimer dans le dossier. Cette situation avait créer un embranchement dans le workflow de travail qui s'etait rejoins sur le push suivant de Julian. Tibault a donc rechercher le noeud d'origine de l'embranchement afin de faire revenir sa version à cette base saine avant de pull les modifications de Julian. Pour ce faire, Tibault a effectué des recherches en particulier sur le site de  @brehin_supprimer_2025 mais n'ayant pas pu résoudre mon problème en étant certain de la manipulation, Tibault a utilisé l'IA Claude afin d'obtenir plus ample explication et utiliser la commande git reset --hard HEAD~1 pour revenir à la base saine.
 
 ## Liens
 
