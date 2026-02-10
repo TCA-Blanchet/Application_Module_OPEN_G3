@@ -30,7 +30,7 @@ fluidPage(
                ),
                mainPanel(leafletOutput("map")
                )
-    ))
+             ))
     
   )# fermeture tabsetPanel
 )# fermeture Fluidpage
