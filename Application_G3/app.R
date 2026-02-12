@@ -79,19 +79,56 @@ ui <- fluidPage(
     
     tabPanel("About",
              titlePanel("L'Equipe"),
-             checkboxGroupInput("variable_about", "Variables to show:",
-                                c("Cylinders" = "cyl",
-                                  "Transmission" = "am",
-                                  "Gears" = "gear")),
              fluidRow(
-               column(width = 4),
-               column(width = 2, offset = 3)
+               column(width = 3, align = "center",
+                      wellPanel(
+                        img(src = "Profil_Julian.png", width = "35%", 
+                            style = "border-radius: 50%; object-fit: cover; margin-bottom: 15px"),
+                        h4("Julien"),
+                        p("Server Développeur") 
+                      )
+               ),
+               column(width = 3, align = "center",
+                      wellPanel(
+                        img(src = "Profil_Kevine.png", width = "35%", 
+                            style = "border-radius: 50%; object-fit: cover; margin-bottom: 15px"),
+                        h4("Kevine"),
+                        p("UI Développeuse") 
+                      )
+               ),
+               column(width = 3, align = "center",
+                      wellPanel(
+                        img(src = "Profil_Tibault.png", width = "35%", 
+                            style = "border-radius: 50%; object-fit: cover; margin-bottom: 15px"),
+                        h4("Tibault"),
+                        p("Rapport Ecrivain") 
+                      )
+               ),
+               column(width = 3, align = "center",
+                      wellPanel(
+                        img(src = "Profil_Glory.png", width = "35%", 
+                            style = "border-radius: 50%; object-fit: cover; margin-bottom: 15px"),
+                        h4("Glory"),
+                        p("UI Développeuse") 
+                      )
+               )
              ),
-             fluidRow(column(width = 12)),
-             checkboxGroupInput("variable_about2", "Variables to show:",
-                                c("Cylinders" = "cyl",
-                                  "Transmission" = "am",
-                                  "Gears" = "gear"))
+             
+             # Espacement visuel
+             fluidRow(column(width = 12, hr())),
+             titlePanel("Histoire du projet"),
+             fluidRow(
+               column(12,
+                      p("Nous nous sommes séparé les tâches : Glory sur l'UI pour la page d'accueil et l'onglet de la carte, Kevine sur l'UI de la page About, Julian sur le traitement des données et Tibault en support d'explication pour l'UI et la rédaction/synthétisation du traitement des données. 
+Concernant le traitement des données, nous sommes partie de nos données .shp, nous avons dû avons les transformer géométriquement afin de les passer en WGS 84. Ensuite Julian a fait une jointure gauche entre notre catégorisation des AOPs et notre fichier commune.shp.
+Afin de faciliter la lecture de la carte et de ne pas la surcharger la carte avec les zones géographiques des AOPs, Julian a calculer les centroides de chaque AOPs afin de ne faire apparaître qu'un unique point par AOP. Suite à cela nous avons enregistrer le fruit de nos calculs sur différents fichiers afin ne pas refaire faire les calcules à l'ouverture de l'application mais uniquement de la lecture des résultats.
+
+Glory: sur la partie Ui, j'ai fait une barre déroulante des produits regroupés en 4 catégories: boissons, produits laitiers, produits carnés et autres. J'ai assi fait une déroulante afin de permettre à l'utilisateur de trier par région. J'ai également fait des recherches afin apporter plus de couleurs dans l'interface, mais je n'ai pas encore obtenu des résultats qui marchent.",
+                        style = "text-align: justify; padding: 10px")
+               )
+             )
+             
+             
     )
   )
 )
@@ -332,10 +369,10 @@ server <- function(input, output, session) {
       n_aop_dept <- sum(aop_filtrees()$AOP %in% aop_dept_ids)
       
       return(paste0("Département : ", input$departement, "\n",
-                    n_aop_dept, " AOP(s) dans ce département"))
+                    n_aop_dept, " AOP dans ce département"))
     }
     
-    paste0("France entière : ", n_aop_total, " AOP(s) affichées")
+    paste0("France entière : ", n_aop_total, " AOP affichées")
   })
 }
 
