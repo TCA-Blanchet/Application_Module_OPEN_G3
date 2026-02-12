@@ -1,0 +1,1 @@
+CreateObject("WScript.Shell").Run """C:/Program Files/R/R-4.5.2/bin/x64/Rscript.exe"" -e ""library(shiny); runApp('C:/Users/jgarr/Documents/OPEN/projet/projet_groupe/Application_G3/app.R', launch.browser=TRUE)""", 0, False
