@@ -46,6 +46,9 @@ Afin de faciliter la lecture de la carte et de ne pas la surcharger la carte ave
 
 Glory: sur la partie Ui, j'ai fait une barre déroulante des produits regroupés en 4 catégories: boissons, produits laitiers, produits carnés et autres. J'ai assi fait une déroulante afin de permettre à l'utilisateur de trier par région. J'ai également fait des recherches afin apporter plus de couleurs dans l'interface, mais je n'ai pas encore obtenu des résultats qui marchent. 
 
+# Mercredi 11 janvier
+Julian a créer une application en local pour faire les premiers essais sur la création et la gestion d'une carte interactive et de ses paramètres. Cette application test à servie de base pour l'onglet "Carte AOP" en reprennant le code test et en l'implémentant dans ui.r et server.r. Un premier problème est apparu avec l'ui qui fonctionnait mais tout était vide au démarrage car les données ne se chargeaient pas correctement, le checkboxGroupInput dans ui.R avait choices = NULL sans initialisation côté serveur, donc aucune catégorie n'apparaissait ni n'était sélectionnée. Le problème a été résolu en ajoutant une initialisation serveur avec updateCheckboxGroupInput pour charger les catégories et les pré-sélectionner toutes par défaut. Mais avant de trouver la solution, une tentative de résulution utilisant des  Ensuite il n'était plus possible de désélectionner une AOP après sélection car les observe() se bloquaient mutuellement avec trop de vérifications (req(), !is.null(), variables intermédiaires) - résolu en simplifiant le code pour utiliser directement input$xxx sans req() comme dans la version originale qui fonctionnait. (3) Erreur "l'argument 'expr' est manquant" à cause d'une mauvaise syntaxe observeEvent(once = TRUE, ...) - corrigé avec observe() %>% bindEvent(TRUE, once = TRUE). La leçon principale : le code simple et direct fonctionne mieux que le code sur-optimisé.
+
 ## Liens
 
 ISARA : <https://isaranet.fr/> consulté le ...

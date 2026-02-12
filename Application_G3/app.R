@@ -24,14 +24,21 @@ liste_departements <- c("Tous les départements" = "", sort(unique(departements$
 ui <- fluidPage(
   theme = bs_theme(
     bg = "#FFFFFF",
-    fg = "#333333",        # Texte gris foncé pour le confort visuel
-    primary = "#D1477D",   # Bordeaux Clair / Framboise profond
-    secondary = "#F8F9FA", # Fond gris très clair pour les contrastes
+    fg = "#333333",
+    primary = "#b06680",
+    secondary = "#d3d3d3",
     base_font = font_google("Inter"), 
     heading_font = font_google("Playfair Display")
   ),
   
-  titlePanel(h1("Carte des AOP Françaises", style = "font-weight: 500; color: #9A2A56; margin-bottom: 25px;")), 
+  titlePanel(
+    tags$div(style = "display: flex; justify-content: space-between; align-items: center;",
+             tags$h1("Carte des AOP Françaises", 
+                     style = "font-weight: 500; color: #9A2A56; margin: 0;"),
+             tags$img(src = "logo_aop.png", 
+                      style = "height: 70px; margin-right: 25px; margin-top: 10px;")
+    )
+  ),
   
   tabsetPanel(
     
@@ -39,9 +46,119 @@ ui <- fluidPage(
     
     id = "tabs",
     tabPanel("Accueil",
-             titlePanel(icon("home"), "Accueil"),
-             actionButton("go", "Aller à la Carte"),
-             imageOutput("aop_image")
+             fluidRow(
+               column(12, align = "center",
+                      tags$div(style = "margin-top: 30px; margin-bottom: 20px;",
+                               tags$h2("Bienvenue sur la Carte des AOP Françaises", 
+                                       style = "color: #9A2A56; font-weight: 600;"),
+                               tags$p(style = "font-size: 18px; color: #666; margin-top: 10px;",
+                                      "Explorez le patrimoine gastronomique français")
+                      )
+               )
+             ),
+             
+             fluidRow(style = "margin: 0; padding: 0;",
+                      
+                      column(3, style = "padding: 0;",
+                             tags$div(style = "position: relative; height: 500px; overflow: hidden;",
+                                      tags$img(src = "boissons.png", 
+                                               style = "width: 100%; height: 100%; object-fit: cover;"),
+                                      tags$div(style = "position: absolute; bottom: 0; left: 0; right: 0; 
+                                            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent); 
+                                            padding: 40px 20px 30px; text-align: center;",
+                                               tags$h3("Boissons", 
+                                                       style = "color: white; margin-bottom: 15px; font-weight: 600;"),
+                                               actionButton("go_boissons", "Découvrir", 
+                                                            style = "background-color: #b06680; 
+                                                         color: white; 
+                                                         padding: 12px 35px;
+                                                         border: none;
+                                                         border-radius: 5px;
+                                                         font-size: 16px;
+                                                         cursor: pointer;
+                                                         transition: all 0.3s;")
+                                      )
+                             )
+                      ),
+                      
+                      column(3, style = "padding: 0;",
+                             tags$div(style = "position: relative; height: 500px; overflow: hidden;",
+                                      tags$img(src = "produits_laitiers.png", 
+                                               style = "width: 100%; height: 100%; object-fit: cover;"),
+                                      tags$div(style = "position: absolute; bottom: 0; left: 0; right: 0; 
+                                            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent); 
+                                            padding: 40px 20px 30px; text-align: center;",
+                                               tags$h3("Produits Laitiers", 
+                                                       style = "color: white; margin-bottom: 15px; font-weight: 600;"),
+                                               actionButton("go_laitiers", "Découvrir", 
+                                                            style = "background-color: #b06680; 
+                                                         color: white; 
+                                                         padding: 12px 35px;
+                                                         border: none;
+                                                         border-radius: 5px;
+                                                         font-size: 16px;
+                                                         cursor: pointer;
+                                                         transition: all 0.3s;")
+                                      )
+                             )
+                      ),
+                      
+                      column(3, style = "padding: 0;",
+                             tags$div(style = "position: relative; height: 500px; overflow: hidden;",
+                                      tags$img(src = "produits_carnes.png", 
+                                               style = "width: 100%; height: 100%; object-fit: cover;"),
+                                      tags$div(style = "position: absolute; bottom: 0; left: 0; right: 0; 
+                                            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent); 
+                                            padding: 40px 20px 30px; text-align: center;",
+                                               tags$h3("Produits Carnés", 
+                                                       style = "color: white; margin-bottom: 15px; font-weight: 600;"),
+                                               actionButton("go_carnes", "Découvrir", 
+                                                            style = "background-color: #b06680; 
+                                                         color: white; 
+                                                         padding: 12px 35px;
+                                                         border: none;
+                                                         border-radius: 5px;
+                                                         font-size: 16px;
+                                                         cursor: pointer;
+                                                         transition: all 0.3s;")
+                                      )
+                             )
+                      ),
+                      
+                      column(3, style = "padding: 0;",
+                             tags$div(style = "position: relative; height: 500px; overflow: hidden;",
+                                      tags$img(src = "autres.png", 
+                                               style = "width: 100%; height: 100%; object-fit: cover;"),
+                                      tags$div(style = "position: absolute; bottom: 0; left: 0; right: 0; 
+                                            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent); 
+                                            padding: 40px 20px 30px; text-align: center;",
+                                               tags$h3("Autres", 
+                                                       style = "color: white; margin-bottom: 15px; font-weight: 600;"),
+                                               actionButton("go_autres", "Découvrir", 
+                                                            style = "background-color: #b06680; 
+                                                         color: white; 
+                                                         padding: 12px 35px;
+                                                         border: none;
+                                                         border-radius: 5px;
+                                                         font-size: 16px;
+                                                         cursor: pointer;
+                                                         transition: all 0.3s;")
+                                      )
+                             )
+                      )
+             ),
+             
+             fluidRow(
+               column(12, align = "center", style = "margin-top: 25px; margin-bottom: 30px;",
+                      actionButton("go", "Voir toutes les AOP", 
+                                   style = "background-color: #9A2A56; 
+                                       color: white; 
+                                       padding: 15px 40px;
+                                       font-size: 18px;
+                                       border: none;
+                                       border-radius: 5px;")
+               )
+             )
     ),
     
     tabPanel("Carte AOP",
@@ -131,7 +248,6 @@ ui <- fluidPage(
                )
              ),
              
-             # Espacement visuel
              fluidRow(column(width = 12, hr())),
              fluidRow(
                column(width = 12,
@@ -171,8 +287,8 @@ server <- function(input, output, session) {
                   popup = ~paste0("<strong>", NOM_M, "</strong>"), 
                   layerId = ~NOM_M,
                   group = "departements") %>%
-      addCircleMarkers(data = aop_centroides, radius = 6, color = "#0000ff",
-                       fillColor = "#0080ff", fillOpacity = 0.8, weight = 2,
+      addCircleMarkers(data = aop_centroides, radius = 6, color = "#FFE41D",
+                       fillColor = "#F13E3D", fillOpacity = 0.8, weight = 2,
                        layerId = ~AOP,
                        popup = ~paste0("<strong>", AOP, "</strong><br>Catégorie: ", 
                                        categorie, "<br>Communes: ", n_communes),
@@ -181,6 +297,26 @@ server <- function(input, output, session) {
       setView(lng = 2.5, lat = 46.5, zoom = 6) %>%
       addLayersControl(baseGroups = c("OpenStreetMap", "CartoDB"),
                        options = layersControlOptions(collapsed = FALSE))
+  })
+  
+  observeEvent(input$go_boissons, {
+    updateTabsetPanel(session = session, inputId = "tabs", selected = "Carte AOP")
+    updateCheckboxGroupInput(session, "categories", selected = "Boissons")
+  })
+  
+  observeEvent(input$go_laitiers, {
+    updateTabsetPanel(session = session, inputId = "tabs", selected = "Carte AOP")
+    updateCheckboxGroupInput(session, "categories", selected = "Produits Laitiers")
+  })
+  
+  observeEvent(input$go_carnes, {
+    updateTabsetPanel(session = session, inputId = "tabs", selected = "Carte AOP")
+    updateCheckboxGroupInput(session, "categories", selected = "Produits Carnés")
+  })
+  
+  observeEvent(input$go_autres, {
+    updateTabsetPanel(session = session, inputId = "tabs", selected = "Carte AOP")
+    updateCheckboxGroupInput(session, "categories", selected = "Autres")
   })
   
   observeEvent(input$reset_dept, {
@@ -281,15 +417,15 @@ server <- function(input, output, session) {
         addPolylines(data = dept_aop, color = "#3f3f3f", weight = 3, opacity = 0.8,
                      popup = ~paste0("<strong>", NOM_M, "</strong>"),
                      group = "departements") %>%
-        addPolygons(data = communes_aop, fillColor = "#0080ff", fillOpacity = 0.6,
-                    color = "#0000ff", weight = 1,
+        addPolygons(data = communes_aop, fillColor = "#F13E3D", fillOpacity = 0.6,
+                    color = "#FFE41D", weight = 1,
                     popup = ~paste0("<strong>", Commune, "</strong><br>Département: ", 
                                     Departement, "<br>AOP: ", AOP),
-                    highlightOptions = highlightOptions(weight = 2, color = "#0080ff",
+                    highlightOptions = highlightOptions(weight = 2, color = "#F13E3D",
                                                         fillOpacity = 0.8, bringToFront = TRUE),
                     group = "communes") %>%
-        addCircleMarkers(data = point_aop, radius = 12, color = "#0000ff",
-                         fillColor = "#0080ff", fillOpacity = 1, weight = 3,
+        addCircleMarkers(data = point_aop, radius = 12, color = "#FFE41D",
+                         fillColor = "#F13E3D", fillOpacity = 1, weight = 3,
                          popup = ~paste0("<strong>", AOP, "</strong><br>Catégorie: ", 
                                          categorie, "<br>Communes: ", n_communes),
                          group = "markers") %>%
@@ -310,11 +446,11 @@ server <- function(input, output, session) {
         clearMarkers() %>%
         clearGroup("departements") %>%
         clearGroup("markers") %>%
-        addPolylines(data = dept_selectionne, color = "#0080ff", weight = 4, opacity = 1,
+        addPolylines(data = dept_selectionne, color = "#F13E3D", weight = 4, opacity = 1,
                      popup = ~paste0("<strong>", NOM_M, "</strong>"),
                      group = "departements") %>%
-        addCircleMarkers(data = aop_points, radius = 8, color = "#0000ff",
-                         fillColor = "#0080ff", fillOpacity = 0.9, weight = 2,
+        addCircleMarkers(data = aop_points, radius = 8, color = "#FFE41D",
+                         fillColor = "#F13E3D", fillOpacity = 0.9, weight = 2,
                          layerId = ~AOP,
                          popup = ~paste0("<strong>", AOP, "</strong><br>Catégorie: ", 
                                          categorie, "<br>Communes: ", n_communes,
@@ -342,8 +478,8 @@ server <- function(input, output, session) {
                   color = "#1fc919", weight = 1,
                   popup = ~paste0("<strong>", NOM_M, "</strong>"), layerId = ~NOM_M,
                   group = "departements") %>%
-      addCircleMarkers(data = aop_points, radius = 6, color = "#0000ff",
-                       fillColor = "#0080ff", fillOpacity = 0.8, weight = 2,
+      addCircleMarkers(data = aop_points, radius = 6, color = "#FFE41D",
+                       fillColor = "#F13E3D", fillOpacity = 0.8, weight = 2,
                        layerId = ~AOP,
                        popup = ~paste0("<strong>", AOP, "</strong><br>Catégorie: ", 
                                        categorie, "<br>Communes: ", n_communes),
@@ -402,6 +538,7 @@ server <- function(input, output, session) {
   })
   observeEvent(input$go, {
     updateTabsetPanel(session = session, inputId = "tabs", selected = "Carte AOP")
+    updateCheckboxGroupInput(session, "categories", selected = categories_uniques)
   })
   observeEvent(input$to_top, {
     runjs("window.scrollTo({top: 0, behavior: 'smooth'});")
