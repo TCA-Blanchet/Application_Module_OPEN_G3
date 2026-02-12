@@ -31,19 +31,114 @@ ui <- fluidPage(
     heading_font = font_google("Playfair Display")
   ),
   
-  titlePanel(
-    tags$div(style = "display: flex; justify-content: space-between; align-items: center;",
-             tags$h1("Carte des AOP Françaises", 
-                     style = "font-weight: 500; color: #9A2A56; margin: 0;"),
-             tags$img(src = "logo_aop.png", 
-                      style = "height: 70px; margin-right: 25px; margin-top: 10px;")
-    )
+  tags$head(
+    tags$style(HTML("
+      .tab-content {
+        background-color: #FFFFFF !important;
+      }
+      
+      body {
+        background-color: #FFFFFF !important;
+      }
+      
+      /* Onglets propres */
+      .nav-tabs {
+        background-color: #2D1B1F;
+        margin: 0;
+        padding: 0 30px;
+        border-bottom: none;
+      }
+      
+      .nav-tabs > li > a {
+        background-color: transparent;
+        color: #F5E6D3;
+        border: none;
+        margin-right: 5px;
+      }
+      
+      .nav-tabs > li.active > a,
+      .nav-tabs > li.active > a:hover,
+      .nav-tabs > li.active > a:focus {
+        background-color: #FFFFFF;
+        color: #9A2A56;
+        border: none;
+        border-radius: 5px 5px 0 0;
+      }
+      
+      .nav-tabs > li > a:hover {
+        background-color: rgba(255,255,255,0.1);
+        color: #F5E6D3;
+      }
+    .container-fluid h2 {
+      color: #2D1B1F !important;
+    }
+    
+    /* Labels des inputs */
+    .control-label {
+      color: #333333 !important;
+      font-weight: 500;
+    }
+    
+    .form-control {
+      background-color: #FFFFFF !important;
+      color: #333333 !important;
+      border: 1px solid #CCCCCC !important;
+    }
+    
+    .form-control:focus {
+      border-color: #b06680 !important;
+      box-shadow: 0 0 0 0.2rem rgba(176, 102, 128, 0.25) !important;
+    }
+    
+    .btn-secondary {
+      background-color: #6C757D !important;
+      color: #FFFFFF !important;
+      border-color: #6C757D !important;
+    }
+    
+    .btn-secondary:hover {
+      background-color: #5A6268 !important;
+      border-color: #545B62 !important;
+    }
+    
+    .checkbox label {
+      color: #333333 !important;
+    }
+    
+    pre {
+      background-color: #F8F9FA !important;
+      color: #333333 !important;
+      border: 1px solid #DEE2E6 !important;
+    }
+    
+    .well {
+      background-color: #F8F9FA !important;
+      border: 1px solid #DEE2E6 !important;
+    }
+    
+    hr {
+      border-top-color: #DEE2E6 !important;
+    }
+  "))
+  ),
+
+  tags$div(style = "background-color: #2D1B1F;
+                    padding: 20px 30px;
+                    margin-bottom: 0;",
+           tags$div(style = "display: flex; 
+                             justify-content: space-between; 
+                             align-items: center;",
+                    tags$h1("Carte des AOP Françaises", 
+                            style = "font-weight: 500; 
+                                     color: #F5E6D3;
+                                     margin: 0;
+                                     font-family: 'Playfair Display', serif;"),
+                    tags$img(src = "logo_aop.png", 
+                             style = "height: 70px; margin-right: 25px; margin-top: 10px")
+           )
   ),
   
   tabsetPanel(
-    
-    
-    
     id = "tabs",
     tabPanel("Accueil",
              fluidRow(
