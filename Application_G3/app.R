@@ -119,6 +119,14 @@ ui <- fluidPage(
     hr {
       border-top-color: #DEE2E6 !important;
     }
+    /* Texte noir pour la page About */
+h2, h4 {
+  color: #2D1B1F !important;
+}
+
+.well p {
+  color: #333333 !important;
+}
   "))
   ),
 
