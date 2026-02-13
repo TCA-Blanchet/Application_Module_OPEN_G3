@@ -7,7 +7,7 @@ library(shinyjs)
 
 if (!dir.exists("data/processed")) {
   stop("ERREUR : Le dossier 'data/processed' introuvable.\n",
-       "Veuillez exécuter 'prepare-data.R' d'abord.")
+       "Veuillez exécuter 'preparation_donnees_pour_app.R' et 'optimisation_donnees.r' d'abord.")
 }
 
 communes_light <- readRDS("data/processed/communes_light.rds")
