@@ -5,6 +5,6 @@ account: isara-julian-garrel
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 16667851
-bundleId: 11576424
+bundleId: 11576469
 url: https://isara-julian-garrel.shinyapps.io/carte-aop-france/
 version: 1
