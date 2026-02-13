@@ -28,45 +28,47 @@ library(knitr)
 
 # Introduction
 
-Nous avons eu plusieurs idées d'applications utilisant le module Shiny, nos trois idées se basent sur une ou plusieurs cartes.
+Nous avons eu plusieurs idées d'applications utilisant le module Shiny ; nos trois idées se basent sur une ou plusieurs cartes.
 Notre première idée est la création d'une carte à l'échelle française ou régionale des différentes AOP ou labels avec la possibilité d'obtenir de plus amples informations en cliquant dessus.
 Notre seconde idée est la représentation sur une carte de la France, d'une région ou d'un département d'informations issues de l'Insee avec ou sans traitement d'analyse.
 Notre troisième idée est la création d'une carte des événements d'une ville ou d'un département avec une barre de recherche par date ou type d'événement ou lieu et une gestion de la temporalité.
 
 # Présentation du projet
 
-Nous avons choisi de partir sur notre première idée, donc notre projet consiste à la réalisation d'une carte interactive des AOP Françaises avec le module Shiny avec pour objectif de pouvoir la déposé sur leur serveur et ainsi la rendre accessible à tous via son URL.
-
+Nous avons choisi de partir sur notre première idée ; notre projet consiste donc en la réalisation d'une carte interactive des AOP françaises avec le module Shiny, avec pour objectif de pouvoir la déposer sur leur serveur et ainsi la rendre accessible à tous via son URL.
 
 # Suivi de notre travail
 
 ## Mardi 10 février matin
+
 Nous avons choisi de nous pencher sur notre première idée qui est la présentation d'une carte interactive des différentes AOP françaises.
 Pour ce faire, nous avons choisi d'utiliser un jeu de données .shp comme base de carte afin de n'avoir que les départements et communes françaises et non l'entièreté du monde avec OpenStreetMap. Ce jeu de données issu de notre travail de 3e année sous QGIS nous a fait rencontrer quelques problèmes : les fichiers étant trop lourds pour GitHub, Tibault s'est retrouvé avec un commit qui ne pouvait être push sur le répertoire commun, ce qui entraîne un blocage total de la fonction push depuis RStudio, et la suppression de ces documents demandait elle aussi un commit et un push. Pour régler ce problème, il a essayé d'utiliser l'interface Git GUI pour décharger le commit, cependant cela rechargeait les documents précédemment supprimés dans le dossier. Cette situation avait créé un embranchement dans le workflow de travail qui s'était rejoint sur le push suivant de Julian. Tibault a donc recherché le nœud d'origine de l'embranchement afin de faire revenir sa version à cette base saine avant de pull les modifications de Julian. Pour ce faire, Tibault a effectué des recherches en particulier sur le site de [@brehin_supprimer_2025] mais n'ayant pas pu résoudre son problème en étant certain de la manipulation, Tibault a utilisé l'IA Claude afin d'obtenir de plus amples explications et utiliser la commande git reset --hard HEAD~1 pour revenir à la base saine.
 
 Julian a quant à lui travaillé sur les données des AOP ; il a trouvé ces données sur le site [@data_gouv_datagouvfr_2025]. Le fichier étant très volumineux et dense en informations, nous avons fait le choix d'utiliser l'IA pour la partie suivante. Nous avons rajouté un filtre pour catégoriser les AOP en 4 catégories : Produit_carné, Produits_laitiers, Boissons, Autres, ce qui permettra à l'utilisateur final de trier les AOP selon ces catégories. Julian a ensuite utilisé les données .shp issues de notre travail de 3e année d'Admin Express pour s'en servir de base de carte, cependant elles étaient trop lourdes et comportaient des informations non utiles pour notre projet. Nous avons donc épuré nos données et, pour lier notre carte avec nos AOP, nous avons ajouté le code INSEE dans nos deux fichiers en vue d'une future jointure.
 
-## Mardi 10 février Après-midi
+## Mardi 10 février après-midi
+
 Nous nous sommes réparti les tâches : Glory sur l'UI pour la page d'accueil et l'onglet de la carte, Kevine sur l'UI de la page About, Julian sur le traitement des données et Tibault en support d'explication pour l'UI et la rédaction/synthétisation du traitement des données.
 Concernant le traitement des données, nous sommes partis de nos données .shp ; nous avons dû les transformer géométriquement afin de les passer en WGS 84. Ensuite Julian a fait une jointure gauche entre notre catégorisation des AOP et notre fichier commune.shp.
 Afin de faciliter la lecture de la carte et de ne pas surcharger la carte avec les zones géographiques des AOP, Julian a calculé les centroïdes de chaque AOP afin de ne faire apparaître qu'un unique point par AOP. Suite à cela, nous avons enregistré le fruit de nos calculs sur différents fichiers afin de ne pas refaire faire les calculs à l'ouverture de l'application, mais uniquement la lecture des résultats.
 
-Pour chaque fonction de shiny, nous avons utilisé en premier lieu la page officiel de la fonction sur le site de Posit [@posit_shiny_nodate].
+Pour chaque fonction de Shiny, nous avons utilisé en premier lieu la page officielle de la fonction sur le site de Posit [@posit_shiny_nodate].
 
 Glory : sur la partie UI, j'ai fait une barre déroulante des produits regroupés en 4 catégories : boissons, produits laitiers, produits carnés et autres. J'ai aussi fait une liste déroulante afin de permettre à l'utilisateur de trier par région. J'ai également fait des recherches afin d'apporter plus de couleurs dans l'interface, mais je n'ai pas encore obtenu de résultats qui marchent.
 
 ## Mercredi 11 février
+
 Julian avait créé une application en local pour faire les premiers essais sur la création et la gestion d'une carte interactive et de ses paramètres. Cette application test a servi de base pour l'onglet "Carte AOP" en reprenant le code test et en l'implémentant dans ui.R et server.R. Lors de cette transition, plusieurs problèmes sont apparus. Au démarrage, la carte restait vide car le checkboxGroupInput dans ui.R avait choices = NULL au lieu de charger directement les catégories comme dans la version test. Aucune catégorie n'apparaissait donc dans l'interface. Ce problème a été résolu en ajoutant une initialisation côté serveur avec updateCheckboxGroupInput pour charger dynamiquement les catégories et les présélectionner toutes par défaut. En tentant de corriger ce premier problème, des req(input$categories) et des vérifications !is.null() ont été ajoutés dans les observe() pour éviter les erreurs au démarrage. Ces ajouts, qui n'existaient pas dans la version test, ont créé un nouveau bug : l’impossibilité de désélectionner une AOP une fois sélectionnée, car ces vérifications bloquaient la réactivité des observe(). La solution a été de revenir à la logique simple de la version test en retirant tous ces req() et vérifications superflues. Une erreur "l'argument 'expr' est manquant" est apparue à cause d'une mauvaise syntaxe observeEvent(once = TRUE, ...) qui a été corrigée en utilisant observe() %>% bindEvent(TRUE, once = TRUE). Cette journée peut se résumer ainsi : il ne faut pas sur-compliquer le code en ajoutant des sécurités inutiles qui créent plus de problèmes qu'elles n'en résolvent.
 
 ## Jeudi 12 février
-Kevine et Tibault ont travaillé sur l'UI de la page d'accueil et de l'onglet about ; nous nous sommes réparti les onglets, nous avons rajouté des images, revu la couleur de l'interface, ajouté des titres, sous-titres ainsi que des boutons pour faciliter le déplacement dans l'interface. Nous avons rencontré quelques problèmes comme l'impossibilité de passer un texte en justifié, l'emplacement des boutons et leurs apparences... Cependant, en fin de séance, nous avions pu régler la majorité de nos problèmes. Seul résidait un bouton en transparent que Julian a retravaillé et rendu fonctionnel.
+
+Kevine et Tibault ont travaillé sur l'UI de la page d'accueil et de l'onglet about ; nous nous sommes réparti les onglets, nous avons rajouté des images, revu la couleur de l'interface, ajouté des titres, sous-titres ainsi que des boutons pour faciliter le déplacement dans l'interface. Nous avons rencontré quelques problèmes comme l'impossibilité de passer un texte en justifié, l'emplacement des boutons et leurs apparences... Cependant, en fin de séance, nous avions pu régler la majorité de nos problèmes. Seul résidait un bouton transparent que Julian a retravaillé et rendu fonctionnel.
 
 Julian s'est concentré sur la refonte complète de l'interface graphique de l'application pour lui donner un aspect plus professionnel et avec un style "premium". La première étape a été la création d'une page d'accueil moderne avec quatre colonnes d'images en pleine hauteur représentant les catégories d'AOP (Boissons, Produits Laitiers, Produits Carnés, Autres), chacune accompagnée d'un bouton "Découvrir" qui renvoie vers la carte avec la catégorie en présélection. Avant même de commencer le travail, un problème existait avec un bouton "Aller à la Carte" sur la page d'accueil qui était invisible et n'apparaissait qu'au survol de la souris. Ce problème a été résolu en ajoutant des styles CSS inline forçant les couleurs de fond et de texte du bouton. La deuxième étape a été l'intégration du logo AOP dans l'en-tête et la création d'une barre de titre premium avec un fond bordeaux profond (#2D1B1F) et du texte beige clair. Cette modification a cependant créé un nouveau problème : le fond bordeaux s'étendait sur toute la page, rendant illisibles les éléments de la page "Carte AOP" et de la page "About". Un ensemble complet de règles CSS a dû être ajouté pour forcer le fond blanc sur le contenu des onglets, styliser les onglets pour qu'ils s'intègrent harmonieusement dans la barre bordeaux, et ajuster les couleurs de tous les composants (labels, dropdowns, checkboxes, textes) pour assurer leur lisibilité. Le problème le plus critique est apparu lors des tests fonctionnels où les boutons "Découvrir" pour Produits Laitiers et Produits Carnés de la page d'accueil ne filtraient pas correctement les données sur la carte. Une incohérence de nomenclature en était à l’origine. Les catégories dans les données étaient au singulier ("Produit laitier", "Produit carné") tandis que les boutons utilisaient le pluriel. Pour corriger ce problème à la source, le script preparation_donnees_pour_app.R a été modifié en ajoutant une transformation qui convertit automatiquement toutes les catégories au pluriel lors du chargement des données, garantissant ainsi une cohérence parfaite et évitant tout problème futur. Le résultat final est une application avec une identité visuelle cohérente, professionnelle et entièrement fonctionnelle.
 
-## Vendredi 13 Février
+## Vendredi 13 février
 
 Nous avons réorganisé le dossier du projet, ce qui a consisté à réécrire le README, compléter le rapport automatisé, supprimer les documents de test intermédiaires et continuer l'amélioration de l'app. Julian a remarqué en tentant de push l'application sur les serveurs de Posit que notre application était trop lourde. Il s'est donc attelé à essayer d'optimiser le poids de nos fichiers en supprimant les départements ne contenant pas d'AOP.
-
 
 # Bibliographie
 
