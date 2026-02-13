@@ -1,16 +1,8 @@
-# Application_Module_OPEN
-Application module OPEN
+Projet Association Of People du Module OPEN 2026
 
+Application : Carte AOP France
 
-Consigne : 
-onglet d'acceuil
-onglet logiciel
-onglet membre du projet (about)
-onglet rgp
+Notre projet consiste à la présentation des AOP français sur une carte interactive accessible en ligne.
 
-Idée de projet:
-Carte stat insee comparatif population inter département
-recensement cartographique des AOP, Labels…
-carte des évènements d'un département ou d'une région
+L'équipe de développement se compose de : Julian, Kevine, Glory et Tibault.
 
-autre posibilité : Cours interactif R soit tidyverse
