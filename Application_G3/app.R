@@ -4,7 +4,6 @@ library(leaflet)
 library(dplyr)
 library(bslib)
 library(shinyjs)
-options(shiny.port=4869)
 
 if (!dir.exists("data/processed")) {
   stop("ERREUR : Le dossier 'data/processed' introuvable.\n",
@@ -129,7 +128,7 @@ h2, h4 {
 }
   "))
   ),
-
+  
   tags$div(style = "background-color: #2D1B1F;
                     padding: 20px 30px;
                     margin-bottom: 0;",
@@ -355,16 +354,16 @@ h2, h4 {
              fluidRow(
                column(width = 12,
                       wellPanel(
-                        h2("Association of Organisation and People", style = "color: #D1477D; font-weight: 600"),
+                        h2("Association Of People", style = "color: #D1477D; font-weight: 600"),
                         hr(style = "border-top: 2px solid #D1477D; width: 50px; margin-left: 0;"),
                         p("Description du projet :", style = "color: #9A2A56; letter-spacing: 2px; font-size: 0.8em; font-weight: bold"),
-                        p("Description en attente de rédaction", style = "text-align: justify; color: #444; font-size: 1.1em"),
-                        p("Description en attente de rédaction", style = "text-align: justify; color: #444; font-size: 1.1em"),
-                        p("Description en attente de rédaction", style = "text-align: justify; color: #444; font-size: 1.1em"),
-                        p("Description en attente de rédaction", style = "text-align: justify; color: #444; font-size: 1.1em"),
-                        p("Description en attente de rédaction", style = "text-align: justify; color: #444; font-size: 1.1em"),
-                        p("Description en attente de rédaction", style = "text-align: justify; color: #444; font-size: 1.1em"),
-                        p("Description en attente de rédaction", style = "text-align: justify; color: #444; font-size: 1.1em"),
+                        p(
+                        "Notre projet consiste en la présentation des AOP françaises sur une carte interactive accessible en ligne.
+Nous avons effectué ce travail sur 5 jours, nous nous sommes réparti le travail au fur et à mesure.
+Ce projet a été un succès de notre côté ; en effet, nous sommes parvenus à obtenir une application complète et fonctionnelle.
+Et ce projet nous a permis de nous replonger dans le langage R ainsi que de découvrir le module Shiny.
+Cette expérience de travail collective nous a permis de nous entraider et de surmonter nos problèmes, ce qui a fait de nous une vraie mini-équipe de développement."
+                        , style = "text-align: justify; color: #444; font-size: 1.1em"),
                         style = "background-color: #FFF9FB; border: none; border-left: 5px solid #D1477D; border-radius: 4px;"
                       )
                )
